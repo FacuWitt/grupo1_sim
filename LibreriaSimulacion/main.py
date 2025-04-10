@@ -2,10 +2,12 @@ import math
 
 import grupo1_sim.LibreriaSimulacion.modulos.modulo_histograma as histograma
 import grupo1_sim.LibreriaSimulacion.modulos.modulo_distribuciones as distribuciones
+import grupo1_sim.LibreriaSimulacion.modulos.modulo_auxiliares as aux
+
 
 def main():
 
-    # Generar lista de numeros aleatorios
+    # todo Generar lista de numeros aleatorios
     numeros = []
 
     input_distribucion = int(input("Ingrese la distribucion a usar: "
@@ -14,7 +16,13 @@ def main():
                                "    3 exponencial "
                                "    4 poisson "))
 
-    cant_numeros = int(input("Ingrese la cantidad de numeros a generar: "))
+    # cant_numeros = int(input("Ingrese la cantidad de numeros a generar: "))
+
+    # TODO> PROBANDO VALIDACIONES (A MEJORAR)
+    cant_numeros = aux.input_numero("Ingrese la cantidad de numeros a generar: ", "int")
+
+
+
     # cant_intervalos = int(input(f"Ingrese la cantidad de intervalos a utilizar (recomendado: {round(cant_numeros ** (1/2))}): "))
     # cant_intervalos = int(input(f"Ingrese la cantidad de intervalos a utilizar (recomendado: {round(3*math.log(cant_numeros) + 10)}): "))
     cant_intervalos = None

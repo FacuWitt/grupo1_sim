@@ -2,6 +2,8 @@
 def validar_int(valor):
     try:
         valor = int(valor)
+        if valor <= 0:
+            raise ValueError("El numero debe ser positivo")
         return valor
     except ValueError:
         return None
@@ -9,6 +11,8 @@ def validar_int(valor):
 def validar_float(valor):
     try:
         valor = float(valor)
+        if valor <= 0:
+            raise ValueError("El numero debe ser positivo")
         return valor
     except ValueError:
         return None
