@@ -1,4 +1,6 @@
 import matplotlib.pyplot as plt
+from matplotlib.pyplot import autoscale, yticks, ylabel
+
 
 # def histograma(num_matrix, cant_col=30, min_max=None, title="Histograma", name='name'):
 #
@@ -13,17 +15,23 @@ import matplotlib.pyplot as plt
 #
 #     plt.show()
 
-def mostrar_histograma(num_datos, cant_col=None, min_max=None, title="Histograma", name='name'):
-    if min_max:
-        # Quiero ver los intervalos
+def mostrar_histograma(num_datos, cant_col=None, title="Histograma"):
 
-        plt.hist(num_datos, bins=cant_col, range=min_max, density=True, alpha=0.5, color='g')
+    count, bins, patches = plt.hist(num_datos, bins=cant_col, color='#2F4937', edgecolor='white', alpha=0.7)
+    # count, bins, patches = plt.hist(num_datos, bins=binss, color='#2F4937', edgecolor='white', alpha=0.7)
+
+    plt.xticks(bins, [f"{b:.2f}" for b in bins], rotation=70, fontsize=8)
+    plt.tight_layout()
+
+    print (f'bins: {bins}')
 
 
 
-    else:
-        plt.hist(num_datos, bins=cant_col, color='#2F4937')
-    plt.xlabel('Intervalues')
-    plt.ylabel('Frequency')
+    for intervalo in range(len(bins) - 1):
+        print(f'({bins[intervalo]} ; {bins[intervalo + 1]}) => {count[intervalo]}')
+
+    plt.xlabel('Intervalos')
+    plt.ylabel('Frecuencia')
+    plt.title(title)
 
     plt.show()
