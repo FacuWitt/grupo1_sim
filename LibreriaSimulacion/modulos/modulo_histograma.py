@@ -23,15 +23,16 @@ def mostrar_histograma(num_datos, cant_col=None, title="Histograma"):
     plt.xticks(bins, [f"{b:.2f}" for b in bins], rotation=70, fontsize=8)
     plt.tight_layout()
 
-    print (f'bins: {bins}')
+    # print (f'bins: {bins}')
 
 
 
-    for intervalo in range(len(bins) - 1):
-        print(f'({bins[intervalo]} ; {bins[intervalo + 1]}) => {count[intervalo]}')
+    # for intervalo in range(len(bins) - 1):
+    #     print(f'({bins[intervalo]} ; {bins[intervalo + 1]}) => {count[intervalo]}')
 
     plt.xlabel('Intervalos')
     plt.ylabel('Frecuencia')
     plt.title(title)
 
     plt.show()
+    return count, bins
