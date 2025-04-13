@@ -36,6 +36,7 @@ def main():
 
                 cant_intervalos = input_numero(f"Ingrese la cantidad de intervalos a utilizar: ", "int")
 
+                aux.mostrar_numeros(numeros, "d_uniforme")
             case 2:
                 media = input_numero("Ingrese la media: ", "float")
                 desviacion = input_numero("Ingrese la desviacion estandar: ", "float", min=0)
@@ -55,12 +56,15 @@ def main():
 
                 cant_intervalos = input_numero(f"Ingrese la cantidad de intervalos a utilizar (recomendado: {round(3*math.log(cant_numeros) + 10)}): ", "int")
 
+                aux.mostrar_numeros(numeros, "d_exponencial")
             case 4:
                 media = input_numero("Ingrese la media: ", "float", min=0)
 
                 # TODO-> Generacion de numeros aleatorios con una distribucion POISSON
                 numeros = distribuciones.distribucion_poisson(media, cant_numeros)
                 cant_intervalos = aux.input_numero(f"Ingrese la cantidad de intervalos a utilizar (Para una mejor representacion ingresar: {max(numeros) - min(numeros)}): ", "int")
+
+                aux.mostrar_numeros(numeros, "d_poisson")
 
             case _:
                 print("Distribucion no valida")
