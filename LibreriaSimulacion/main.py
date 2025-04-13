@@ -3,7 +3,11 @@ import math
 import grupo1_sim.LibreriaSimulacion.modulos.modulo_histograma as histograma
 import grupo1_sim.LibreriaSimulacion.modulos.modulo_distribuciones as distribuciones
 import grupo1_sim.LibreriaSimulacion.modulos.modulo_auxiliares as aux
-from grupo1_sim.LibreriaSimulacion.modulos.modulo_auxiliares import validar_float, input_numero
+
+
+from grupo1_sim.LibreriaSimulacion.modulos.modulo_auxiliares import input_numero
+from grupo1_sim.LibreriaSimulacion.modulos.modulo_auxiliares import mostrar_numeros
+
 
 
 def main():
@@ -39,8 +43,10 @@ def main():
                 # TODO-> Generacion de numeros aleatorios con una distribucion NORMAL
                 numeros = distribuciones.distribucion_normal(desviacion, media, cant_numeros)
 
-                cant_intervalos = input_numero(f"Ingrese la cantidad de intervalos a utilizar (recomendado: {round(3*math.log(cant_numeros) + 10)}): ", "int")
 
+                cant_intervalos = input_numero(f"Ingrese la cantidad de intervalos a utilizar para la grafica (recomendado: {round(3*math.log(cant_numeros) + 10)}): ", "int")
+
+                aux.mostrar_numeros(numeros, "d_normal")
             case 3:
                 media = input_numero("Ingrese la media: ", "float", min=0)
 
@@ -54,12 +60,7 @@ def main():
 
                 # TODO-> Generacion de numeros aleatorios con una distribucion POISSON
                 numeros = distribuciones.distribucion_poisson(media, cant_numeros)
-
-                # maximo_numero se utiliza para calcular la cantidad optima de intervalos para reflejar correctamente los datos en una distribucion de poisson
-                # (Ya que solo se calculan numeros enteros)
-                maximo_numero = max(numeros)
-                input_cant_intervalos = aux.input_numero(f"Ingrese la cantidad de intervalos a utilizar (Para una mejor representacion ingresar: {maximo_numero}): ", "int")
-                cant_intervalos = [i for i in range(min(numeros), input_cant_intervalos + 1)] if input_cant_intervalos == maximo_numero else input_cant_intervalos
+                cant_intervalos = aux.input_numero(f"Ingrese la cantidad de intervalos a utilizar (Para una mejor representacion ingresar: {max(numeros) - min(numeros)}): ", "int")
 
             case _:
                 print("Distribucion no valida")
