@@ -1,6 +1,7 @@
 import time
 from datetime import datetime
 
+
 import pandas as pd
 
 
@@ -73,6 +74,77 @@ def mostrar_numeros(numeros, distribucion):
 
     df.to_csv(filename, index=False)
     print(f'Archivo "{filename}" guardado correctamente.')
+
+
+# def fun(frec):
+#     i_frec = 0
+#     while i_frec <= len(frec) - 1:
+#
+#         print("==============")
+#         print (frec[i_frec])
+#
+#         n = frec[i_frec] # Frecuencia observada
+#
+#         while n < 5:
+#             print("i_frec:", i_frec)
+#             print("n_anterior:", n)
+#             n += frec[i_frec + 1]
+#             i_frec += 1
+#             print("n:", n)
+#             print("i_final:", i_frec)
+#         i_frec +=1
+
+
+
+def fun(frec_obs):
+    frec_ant = 0
+    pos_inicial = 0
+    pos_final = 0
+    primer_entrada = True
+    for i in range(len(frec_obs)):
+        if (frec_obs[i] + frec_ant) < 5:
+            if primer_entrada:
+                pos_inicial = i
+            primer_entrada = False
+            frec_ant += frec_obs[i] # anterior mas actual
+        else:
+            pos_final = i
+            primer_entrada = True
+
+
+def agrupar_bins_frecuencia_baja(counts, bins, threshold=5):
+    new_counts = []
+    new_bins = [bins[0]]
+
+    temp_count = 0
+    temp_bin_start = bins[0]
+
+    for i in range(len(counts)):
+        temp_count += counts[i]
+
+        if temp_count >= threshold:
+            new_counts.append(temp_count)
+            temp_count = 0
+            new_bins.append(bins[i + 1])
+
+    # Si quedaron frecuencias acumuladas sin agrupar
+    if temp_count > 0:
+        # Las sumamos al último grupo o las dejamos como grupo final
+        if len(new_counts) > 0:
+            new_counts[-1] += temp_count
+            new_bins[-1] = bins[-1]
+        else:
+            new_counts.append(temp_count)
+            new_bins.append(bins[-1])
+
+    return new_counts, new_bins
+
+
+
+
+
+
+
 
 
 
