@@ -1,5 +1,4 @@
 import matplotlib.pyplot as plt
-from matplotlib.pyplot import autoscale, yticks, ylabel
 
 def mostrar_histograma(num_datos, cant_col=None, title="Histograma"):
 

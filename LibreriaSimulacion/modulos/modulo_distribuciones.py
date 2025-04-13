@@ -1,12 +1,10 @@
-import random
-from linecache import cache
-
-import matplotlib.pyplot as plt
+import numpy as np
 import math
 
 def generar_random(): #>> retorna valor random entre 0 y 1
     #Generar numero random
-    return random.random()
+    return np.random.rand()
+
 
 # DISTRIBUCION UNIFORME: distribucion_uniforme(a, b)
 def distribucion_uniforme(a, b, cant_num):

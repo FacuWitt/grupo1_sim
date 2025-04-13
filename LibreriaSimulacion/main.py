@@ -1,26 +1,17 @@
 import math
 
-import grupo1_sim.LibreriaSimulacion.modulos.modulo_histograma as histograma
-import grupo1_sim.LibreriaSimulacion.modulos.modulo_distribuciones as distribuciones
-import grupo1_sim.LibreriaSimulacion.modulos.modulo_auxiliares as aux
-import grupo1_sim.LibreriaSimulacion.modulos.modulo_chicuadrado as chi
-
-from grupo1_sim.LibreriaSimulacion.modulos.modulo_auxiliares import input_numero
-from grupo1_sim.LibreriaSimulacion.modulos.modulo_auxiliares import mostrar_numeros
-
-
-
-
+import modulos.modulo_histograma as histograma
+import modulos.modulo_distribuciones as distribuciones
+import modulos.modulo_auxiliares as aux
+import modulos.modulo_chicuadrado as chi
+from modulos.modulo_auxiliares import input_numero
+from modulos.modulo_auxiliares import mostrar_numeros
 
 def main():
     numeros = []
     cant_intervalos = None
     bins=None
-
-
     input_distribucion = 0
-
-
 
 
     while input_distribucion != 5:
@@ -60,10 +51,9 @@ def main():
 
                 # Generar histograma
                 frec, lim_intervalos = histograma.mostrar_histograma(numeros, cant_col=cant_intervalos, title="Histograma Normal")
-
                 # Calcular chi cuadrado
-                chi_cuadrado = chi.chi_cuadrado_normal(frec, lim_intervalos, cant_numeros, desviacion, media)
-
+                chi_cuadrado, cantidad_int = chi.chi_cuadrado_normal(frec, lim_intervalos, cant_numeros, desviacion, media)
+                print(f"Chi cuadrado: {chi_cuadrado} \nCantidad de intervalos: {cantidad_int} \n")
 
 
             case 3:
@@ -90,14 +80,6 @@ def main():
             case _:
                 print("Distribucion no valida")
                 return
-
-
-
-        for i in range(len(lim_intervalos) - 1):
-            print(f'Intervalo {i+1}: {lim_intervalos[i]} - {lim_intervalos[i + 1]}: {frec[i]}')
-
-        # count y bins son arrays utiles para calcular la frecuencia relativa
-        # TODO -> prueba de chi-cuadrado
 
 
 
