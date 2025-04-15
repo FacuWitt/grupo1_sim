@@ -7,15 +7,10 @@ import modulos.modulo_auxiliares as aux
 
 
 def main():
-    numeros = []
-    cant_intervalos = None
-    bins=None
     input_distribucion = 0
-
-
     while input_distribucion != 5:
 
-        input_distribucion = aux.input_numero("\nIngrese la distribucion a usar: \n\t1 uniforme \n\t2 normal\n\t3 exponencial \n\t4 poisson \n\t5 SALIR\n\n =>", "int", min=1, max=5)
+        input_distribucion = aux.input_numero("\nIngrese la distribucion a usar: \n\t1 Uniforme \n\t2 Normal\n\t3 Exponencial \n\t4 Poisson \n\t5 SALIR\n\n =>", "int", min=1, max=5)
         if input_distribucion == 5:
             print("Fin del programa")
             break
@@ -31,8 +26,6 @@ def main():
 
                 cant_intervalos = aux.input_numero(f"Ingrese la cantidad de intervalos a utilizar: ", "int")
 
-                aux.mostrar_numeros(numeros, "d_uniforme")
-
                 frec, lim_intervalos = histograma.mostrar_histograma(numeros, cant_col=cant_intervalos, title="Histograma Uniforme")
 
                 # TODO  Calcular Chi_cuadrado=======================================
@@ -43,6 +36,8 @@ def main():
                 print('\n---------------------------------------------')
                 print(f"Grados de libertad: {grados_de_libertad}\n  Chi cuadrado calculado: {chi_cuadrado} \n  Chi cuadrado Tabla: {chi_cuadrado_tab}\n")
                 print(f'{"No se rechaza" if chi_cuadrado_tab > chi_cuadrado else "Rechazada"}')
+
+                aux.preguntar_mostrar_y_guardar(numeros, "d_uniforme")
                 print('---------------------------------------------')
 
 
@@ -56,8 +51,6 @@ def main():
 
                 cant_intervalos = aux.input_numero(f"Ingrese la cantidad de intervalos a utilizar para la grafica (recomendado: {round(3*math.log(cant_numeros) + 10)}): ", "int")
 
-                aux.mostrar_numeros(numeros, "d_normal")
-
                 # Generar histograma
                 frec, lim_intervalos = histograma.mostrar_histograma(numeros, cant_col=cant_intervalos, title="Histograma Normal")
 
@@ -70,6 +63,8 @@ def main():
                 print('\n---------------------------------------------')
                 print(f"Grados de libertad: {grados_de_libertad}\n  Chi cuadrado calculado: {chi_cuadrado} \n  Chi cuadrado Tabla: {chi_cuadrado_tab}\n")
                 print(f'{"No se rechaza" if chi_cuadrado_tab > chi_cuadrado else "Rechazada"   }')
+
+                aux.preguntar_mostrar_y_guardar(numeros, "d_normal")
                 print('---------------------------------------------')
 
 
@@ -81,8 +76,6 @@ def main():
 
                 cant_intervalos = aux.input_numero(f"Ingrese la cantidad de intervalos a utilizar (recomendado: {round(3*math.log(cant_numeros) + 10)}): ", "int")
 
-                aux.mostrar_numeros(numeros, "d_exponencial")
-
                 frec, lim_intervalos = histograma.mostrar_histograma(numeros, cant_col=cant_intervalos, title="Histograma Exponencial")
 
                 # TODO  Calcular Chi_cuadrado=======================================
@@ -92,6 +85,8 @@ def main():
                 print('\n---------------------------------------------')
                 print(f"Grados de libertad: {grados_de_libertad}\n  Chi cuadrado calculado: {chi_cuadrado}\n  Chi cuadrado Tabla: {chi_cuadrado_tab}\n")
                 print(f'{"No se rechaza" if chi_cuadrado_tab > chi_cuadrado else "Rechazada"}')
+
+                aux.preguntar_mostrar_y_guardar(numeros, "d_exponencial")
                 print('---------------------------------------------')
 
             case 4:
@@ -101,8 +96,6 @@ def main():
                 numeros = distribuciones.distribucion_poisson(media, cant_numeros)
 
                 # numeros = [14, 7, 13, 16, 16, 13, 14, 17, 15, 16, 13, 15, 10, 15, 16, 14, 12, 17, 14, 12, 13, 20, 8, 17, 19, 11, 12, 17, 9, 18, 20, 10, 18, 15, 13, 16, 24, 18, 16, 18, 12, 14, 20, 15, 10, 13, 21, 23, 18, 15]
-
-                aux.mostrar_numeros(numeros, "d_poisson")
 
                 frec, values = histograma.mostrar_barras(numeros, title="Histograma poisson") # devuelve los valores y frecuencias
 
@@ -114,8 +107,9 @@ def main():
                 print('\n---------------------------------------------')
                 print(f"Grados de libertad: {grados_de_libertad}\n  Chi cuadrado calculado: {chi_cuadrado} \n  Chi cuadrado Tabla: {chi_cuadrado_tab}\n")
                 print(f'{"No se rechaza" if chi_cuadrado_tab > chi_cuadrado else "Rechazada"}')
-                print('---------------------------------------------')
 
+                aux.preguntar_mostrar_y_guardar(numeros, "d_poisson")
+                print('---------------------------------------------')
 
             case _:
                 print("Distribucion no valida")

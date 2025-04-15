@@ -1,9 +1,4 @@
-
 from datetime import datetime
-# from modulo_chicuadrado import chi_cuadrado_normal as chi_cuadrado_normal
-# from modulo_chicuadrado import chi_cuadrado_uniforme as chi_cuadrado_uniforme
-# from modulo_chicuadrado import chi_cuadradro_exponecial as chi_cuadrado_exponencial
-
 import pandas as pd
 
 
@@ -177,6 +172,16 @@ def agrupar_valores_con_esperadas(frec_obs, bins, frec_esp, threshold=5):
         new_bins.append(bins[-1])
 
     return new_obs, new_esp, new_bins
+
+
+def preguntar_mostrar_y_guardar(numeros, distribucion):
+
+    respuesta = input("¿Desea mostrar los números por terminal y guardarlos como CSV? (si/no): ").strip().lower()
+
+    if respuesta in ['si', 'sí', 's']:
+        mostrar_numeros(numeros, distribucion)
+    else:
+        print("❌ Los números no se guardarán.")
 
 
 #VALIDAR SI ESTA BIEN HECHO CHI_UNIFORME CON LOS EJEMPLOS DEL PROFE
