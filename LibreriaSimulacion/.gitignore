@@ -2,7 +2,7 @@
 .venv/
 
 # Ignorar archivos de recursos
-recursos/*
+recursos/*.csv
 
 # Ignorar cachés de Python
 __pycache__/
