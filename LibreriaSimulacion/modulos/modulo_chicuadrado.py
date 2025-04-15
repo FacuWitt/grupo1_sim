@@ -37,6 +37,8 @@ def dist_densidad_normal(x, media, desviacion):
     # Calcular la densidad de probabilidad de la distribución normal
     return (1 / (desviacion * math.sqrt(2 * math.pi))) * math.exp(-0.5 * ((x - media) / desviacion) ** 2)
 
+def dist_densidad_poaasson(lambd, x):
+    return ((lambd ** x) * math.e ** (-lambd)) / math.factorial(int(x))
 
 def chi_cuadrado_normal(frec, lim_intervalos, cant_numeros, desviacion, media):
     cant_intervalos = len(frec)
@@ -56,6 +58,28 @@ def chi_cuadrado_normal(frec, lim_intervalos, cant_numeros, desviacion, media):
         chi_cuadrado += ((frec[i] - frec_esperada[i]) ** 2) / frec_esperada[i]
     return chi_cuadrado, len(frec)
 
+def chi_cuadrado_uniforme(frec_obs, cant_numeros):
+    cant_intervalos = len(frec_obs)
+    frec_esperada = cant_numeros / cant_intervalos
+    chi_cuadrado = 0
+    for i in range(len(frec_obs)):
+        chi_cuadrado += ((frec_obs[i] - frec_esperada) ** 2) / frec_esperada
+    return chi_cuadrado
+
+def chi_cuadrado_poaasson(frec_obs, media, cant_numeros):
+    cant_intervalos = len(frec_obs)
+    lambd = media
+    frec_esperada = []
+    for i in range(cant_intervalos):
+        prob_x = dist_densidad_poaasson(lambd, frec_obs[i])
+        frec_esperada.append(prob_x * cant_numeros)
+
+    frec_obs_nueva, frec_esperada, lim_intervalos = agrupar_bins_con_esperadas(frec_obs, frec_esperada, lim_intervalos, )
+    chi_cuadrado = 0
+    for i in range(len(frec_obs_nueva)):
+        chi_cuadrado += ((frec_obs[i] - frec_esperada[i]) ** 2) / frec_esperada[i]
+
+    return chi_cuadrado, len(frec_obs_nueva)
 
 
 
