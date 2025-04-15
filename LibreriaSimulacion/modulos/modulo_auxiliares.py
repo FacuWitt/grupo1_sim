@@ -1,7 +1,8 @@
 import time
 from datetime import datetime
-#from modulo_chicuadrado import chi_cuadrado_uniforme, chi_cuadrado_normal, chi_cuadrado_poaasson
-
+from modulo_chicuadrado import chi_cuadrado_normal as chi_cuadrado_normal
+from modulo_chicuadrado import chi_cuadrado_uniforme as chi_cuadrado_uniforme
+from modulo_chicuadrado import chi_cuadradro_exponecial as chi_cuadrado_exponencial
 
 import pandas as pd
 
@@ -140,23 +141,32 @@ def agrupar_bins_frecuencia_baja(counts, bins, threshold=5):
 
     return new_counts, new_bins
 
-##VALIDAR SI ESTA BIEN HECHO CHI_UNIFORME CON LOS EJEMPLOS DEL PROFE
-# def probar_chi_cuadrado_uniforme_profe():
-#     datos_uniforme = [0.15, 0.22, 0.41, 0.65, 0.84, 0.81, 0.62, 0.45, 0.32, 0.07,
-#     0.11, 0.29, 0.58, 0.73, 0.93, 0.97, 0.79, 0.55, 0.35, 0.09,
-#     0.99, 0.51, 0.35, 0.02, 0.19, 0.24, 0.98, 0.10, 0.31, 0.17]
-#     frec_obse = [8, 7,5,4,6]
-#     chi_uni = chi_cuadrado_uniforme(frec_obse, len(datos_uniforme))
-#     print("Valor de chi: ", chi_uni)
-#
-# #VALIDAR SI ESTA BIEN HECHO CHI_NORMAL CON LOS EJEMPLOS DEL PROFE
-# def probar_chi_normal_profe():
-#     frec_obs = [0, 1, 3, 4, 8, 7, 5, 2, 0, 0]
-#     lim_intervalos = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-#
-#     chi_calculado, intervalos = chi_cuadrado_normal(frec_obs,lim_intervalos, 30,1.5574,4.8410)
-#     print("Valor de chi= " , chi_calculado, "\nIntervalos = ", intervalos)
-#
+#VALIDAR SI ESTA BIEN HECHO CHI_UNIFORME CON LOS EJEMPLOS DEL PROFE
+def probar_chi_cuadrado_uniforme_profe():
+    datos_uniforme = [0.15, 0.22, 0.41, 0.65, 0.84, 0.81, 0.62, 0.45, 0.32, 0.07,
+    0.11, 0.29, 0.58, 0.73, 0.93, 0.97, 0.79, 0.55, 0.35, 0.09,
+    0.99, 0.51, 0.35, 0.02, 0.19, 0.24, 0.98, 0.10, 0.31, 0.17]
+    frec_obse = [8, 7,5,4,6]
+    chi_uni = chi_cuadrado_uniforme(frec_obse, len(datos_uniforme))
+    print("Valor de chi: ", chi_uni)
+
+#VALIDAR SI ESTA BIEN HECHO CHI_NORMAL CON LOS EJEMPLOS DEL PROFE
+def probar_chi_normal_profe():
+    frec_obs = [0, 1, 3, 4, 8, 7, 5, 2, 0, 0]
+    lim_intervalos = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+    chi_calculado, intervalos = chi_cuadrado_normal(frec_obs,lim_intervalos, 30,1.5574,4.8410)
+    print("Valor de chi= " , chi_calculado, "\nIntervalos = ", intervalos)
+
+def probar_chi_exp_profe():
+    frec_obs = [18,10,9,8,3,1,1]
+    media = 2.4984
+    cant_numeros = 50
+    lim_intervalos = [0.10, 1.28, 2.46, 3.64, 4.82, 6.00, 7.18, 8.36]
+    chi_exp, intervalos = chi_cuadrado_exponencial(frec_obs, cant_numeros, media, lim_intervalos)
+    print("Valor de chi exp= ", chi_exp, "\nIntervalos = ", intervalos)
+
+
 # def probar_chi_poisson_profe():
 #     valores = [1, 1, 1, 3, 1, 4, 6, 5, 6, 6, 4, 5, 1, 3, 1, 0, 1, 1]
 #     media = 15.04
@@ -164,8 +174,9 @@ def agrupar_bins_frecuencia_baja(counts, bins, threshold=5):
 #     lim_intervalos = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 #     chi_calculado, intervalos = chi_cuadrado_poaasson(valores,media, n)
 #     print("Valor de chi= ", chi_calculado, "\nIntervalos = ", intervalos)
-#
-#
-# probar_chi_cuadrado_uniforme_profe()
-# probar_chi_normal_profe()
-# probar_chi_poisson_profe()
+
+
+probar_chi_cuadrado_uniforme_profe()
+probar_chi_normal_profe()
+probar_chi_exp_profe()
+#probar_chi_poisson_profe()

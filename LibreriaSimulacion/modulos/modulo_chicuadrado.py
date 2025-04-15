@@ -38,7 +38,14 @@ def dist_densidad_normal(x, media, desviacion):
     return (1 / (desviacion * math.sqrt(2 * math.pi))) * math.exp(-0.5 * ((x - media) / desviacion) ** 2)
 
 def dist_densidad_poaasson(lambd, x):
-    return ((lambd ** x) * math.e ** (-lambd)) / math.factorial(int(x))
+    return ((lambd ** x) * math.exp(-lambd)) / math.factorial(int(x))
+
+def dist_densidad_exponencial(lambd, lim_intervalo, lim_intervalo_sig):
+    marca = (lim_intervalo + lim_intervalo_sig) / 2
+    return lambd * math.exp(-lambd * marca) * (lim_intervalo_sig -lim_intervalo)
+
+def dist_densidad_exponecial_acum(lamb, lim_intervalo, lim_intervalo_sig):
+    return (1 - math.exp(-lamb * lim_intervalo_sig)) - (1 - math.exp(-lamb * lim_intervalo))
 
 def chi_cuadrado_normal(frec, lim_intervalos, cant_numeros, desviacion, media):
     cant_intervalos = len(frec)
@@ -66,20 +73,35 @@ def chi_cuadrado_uniforme(frec_obs, cant_numeros):
         chi_cuadrado += ((frec_obs[i] - frec_esperada) ** 2) / frec_esperada
     return chi_cuadrado
 
-def chi_cuadrado_poaasson(frec_obs, media, cant_numeros):
+# def chi_cuadrado_poaasson(frec_obs, media, cant_numeros):
+#     cant_intervalos = len(frec_obs)
+#     lambd = media
+#     frec_esperada = []
+#     for i in range(cant_intervalos):
+#         prob_x = dist_densidad_poaasson(lambd, frec_obs[i])
+#         frec_esperada.append(prob_x * cant_numeros)
+#
+#     frec_obs_nueva, frec_esperada, lim_intervalos = agrupar_bins_con_esperadas(frec_obs, frec_esperada, lim_intervalos, )
+#     chi_cuadrado = 0
+#     for i in range(len(frec_obs_nueva)):
+#         chi_cuadrado += ((frec_obs[i] - frec_esperada[i]) ** 2) / frec_esperada[i]
+#
+#     return chi_cuadrado, len(frec_obs_nueva)
+
+def chi_cuadradro_exponecial(frec_obs, cant_numeros, media, lim_intervalos):
     cant_intervalos = len(frec_obs)
-    lambd = media
-    frec_esperada = []
+    frec_esp = []
+    lambd = 1/media
     for i in range(cant_intervalos):
-        prob_x = dist_densidad_poaasson(lambd, frec_obs[i])
-        frec_esperada.append(prob_x * cant_numeros)
+        #prob_x = dist_densidad_exponencial(lambd, lim_intervalos[i], lim_intervalos[i + 1])
+        prob_x = dist_densidad_exponecial_acum(lambd, lim_intervalos[i], lim_intervalos[i+1])
+        frec_esp.append(prob_x * cant_numeros)
 
-    frec_obs_nueva, frec_esperada, lim_intervalos = agrupar_bins_con_esperadas(frec_obs, frec_esperada, lim_intervalos, )
+    frec_obs, frec_esperada, lim_intervalos = agrupar_bins_con_esperadas(frec_obs, lim_intervalos, frec_esp)
     chi_cuadrado = 0
-    for i in range(len(frec_obs_nueva)):
+    for i in range(len(frec_obs)):
         chi_cuadrado += ((frec_obs[i] - frec_esperada[i]) ** 2) / frec_esperada[i]
-
-    return chi_cuadrado, len(frec_obs_nueva)
+    return chi_cuadrado, len(frec_obs)
 
 
 

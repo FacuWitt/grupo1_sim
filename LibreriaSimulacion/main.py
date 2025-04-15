@@ -71,6 +71,10 @@ def main():
                 #aux.mostrar_numeros(numeros, "d_exponencial")
 
                 frec, lim_intervalos = histograma.mostrar_histograma(numeros, cant_col=cant_intervalos, title="Histograma Exponencial")
+
+                #Calcular chi exponencial
+                chi_cuadrado, cantidad_int = chi.chi_cuadradro_exponecial(frec, cant_numeros, media, lim_intervalos)
+                print(f"Chi cuadrado: {chi_cuadrado} \nCantidad de intervalos: {cantidad_int} \n")
             case 4:
                 media = input_numero("Ingrese la media: ", "float", min=0)
 
@@ -82,9 +86,9 @@ def main():
 
                 frec, lim_intervalos = histograma.mostrar_histograma(numeros, cant_col=cant_intervalos, title="Histograma Poisson")
 
-                #Calculo chi cuadrado
-                chi_cuadrado, cantidad_int = chi.chi_cuadrado_poaasson(frec, lim_intervalos, media, cant_numeros)
-                print(f"Chi cuadrado: {chi_cuadrado} \nCantidad de intervalos: {cantidad_int} \n")
+                #Calculo chi cuadrado COMPLETAR
+                #chi_cuadrado, cantidad_int = chi.chi_cuadrado_poaasson(frec, lim_intervalos, media, cant_numeros)
+                #print(f"Chi cuadrado: {chi_cuadrado} \nCantidad de intervalos: {cantidad_int} \n")
             case _:
                 print("Distribucion no valida")
                 return
